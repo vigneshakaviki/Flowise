@@ -1,4 +1,5 @@
-import { describe, expect, it, beforeEach } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
+import { StatusCodes } from 'http-status-codes'
 import { Request, Response, NextFunction } from 'express'
 
 // Mock logger before importing the module under test
@@ -38,8 +39,8 @@ describe('auth controller', () => {
 
             await authController.getAllPermissions(req, res, next)
 
-            expect(status).toHaveBeenCalledWith(401)
-            expect(json).toHaveBeenCalledWith({ error: 'Unauthorized Access' })
+            expect(status).toHaveBeenCalledWith(StatusCodes.UNAUTHORIZED)
+            expect(json).toHaveBeenCalledWith({ message: 'Unauthorized Access' })
             expect(next).not.toHaveBeenCalled()
         })
 
@@ -71,7 +72,7 @@ describe('auth controller', () => {
 
             await authController.getAllPermissions(req, res, next)
 
-            expect(status).toHaveBeenCalledWith(200)
+            expect(status).toHaveBeenCalledWith(StatusCodes.OK)
             expect(json).toHaveBeenCalledWith(mockPermissions)
         })
     })

@@ -11,7 +11,7 @@ const getAllPermissions = async (req: Request, res: Response, next: NextFunction
         const allPermissions = appServer.identityManager.getPermissions().toJSON()
         const user = req.user as LoggedInUser | undefined
         if (!user) {
-            return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Unauthorized Access' })
+            return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Unauthorized Access' })
         }
 
         let permissions: { [key: string]: { key: string; value: string }[] } = allPermissions
